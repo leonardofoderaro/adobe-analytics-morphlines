@@ -22,10 +22,16 @@
       <scope>test</scope>
     </dependency>
     
-      <dependency>
+   <dependency>
+    <groupId>org.kitesdk</groupId>
+    <artifactId>kite-morphlines-core</artifactId>
+    <version>1.1.1-SNAPSHOT</version>
+  
+  <!--
   <groupId>org.kitesdk</groupId>
   <artifactId>kite-morphlines-core</artifactId>
-  <version>1.0.0</version> <!-- or whatever the latest version is -->
+  <version>1.0.0</version> 
+  -->
 </dependency>
 
 <dependency>
