@@ -33,8 +33,13 @@ public class AnalyticsClientCommand extends AbstractCommand {
 		buildAnalictsClient();
 		
 		record.put("analyticsClient", client);
-
-		return true;
+		
+		return getChild().process(record);
+	}
+	
+	@Override
+	public void doNotify(Record r) {
+		System.out.println(r);
 	}
 
 	private void buildAnalictsClient() {
