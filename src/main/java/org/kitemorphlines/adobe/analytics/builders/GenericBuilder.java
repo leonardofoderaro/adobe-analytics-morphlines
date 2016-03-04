@@ -1,7 +1,5 @@
 package org.kitemorphlines.adobe.analytics.builders;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -23,7 +21,6 @@ public class GenericBuilder implements CommandBuilder {
 		return Arrays.asList("Bookmark", "Report");
 	}
 
-	@Override
 	public Command build(Config config, Command parent, Command child,
 			MorphlineContext context) {
 		
@@ -37,11 +34,13 @@ public class GenericBuilder implements CommandBuilder {
 		
 		try {
 			api = apiClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 		GenericCommand cmd = new GenericCommand(this, config, parent, child, context);
 		
