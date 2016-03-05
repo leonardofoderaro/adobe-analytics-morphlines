@@ -1,4 +1,4 @@
-package org.kitemorphlines.utils;
+package org.kitemorphlines.adobe.analytics.api;
 
 import java.util.Map;
 
@@ -9,11 +9,14 @@ import org.kitesdk.morphline.base.components.KiteCommandContext;
 
 import com.adobe.analytics.client.AnalyticsClient;
 import com.adobe.analytics.client.AnalyticsClientBuilder;
+import com.adobe.analytics.client.methods.ReportSuiteMethods;
 
 @KiteComponent
 public class AdobeAnalyticsAPI {
 	
-	AnalyticsClient client;
+	private AnalyticsClient client;
+	
+	private ReportSuiteMethods suiteMethods;
 
 	@KiteCommand
 	public boolean analyticsClient(Record record, Map<String, Object> params, KiteCommandContext ctx) {
@@ -25,10 +28,13 @@ public class AdobeAnalyticsAPI {
 		.authenticateWithSecret(user, secret)
 		.build();
 
-		record.put("analyticsClient", client);
+        suiteMethods = new ReportSuiteMethods(client);
+
+		// we don't need to pass the analyticsClient object to the chain
+		//record.put("analyticsClient", client);
 		
 		return ctx.getChild().process(record);
-
 	}
-	
+
+
 }
