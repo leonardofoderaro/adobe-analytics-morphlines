@@ -14,9 +14,14 @@ import com.adobe.analytics.client.methods.ReportSuiteMethods;
 @KiteComponent
 public class AdobeAnalyticsAPI {
 	
+
 	private AnalyticsClient client;
 	
 	private ReportSuiteMethods suiteMethods;
+	
+	//used to pass the client and suiteMethods objects to other commands
+	public static final String ANALYTICS_CLIENT = "AdobeAnalyticsClient";
+	private static final String ANALYTICS_SUITE_METHODS = "AdobeAnalyticsSuiteMethods";
 
 	@KiteCommand
 	public boolean analyticsClient(Record record, Map<String, Object> params, KiteCommandContext ctx) {
@@ -30,10 +35,19 @@ public class AdobeAnalyticsAPI {
 
         suiteMethods = new ReportSuiteMethods(client);
 
-		// we don't need to pass the analyticsClient object to the chain
-		//record.put("analyticsClient", client);
+		// if we were using only methods from this class
+        // we wouldn't need to pass this to the chain
+		record.put(ANALYTICS_CLIENT, this);
 		
 		return ctx.getChild().process(record);
+	}
+	
+	public AnalyticsClient getAnalyticsClient() {
+		return this.client;
+	}
+	
+	public ReportSuiteMethods getReportSuiteMethods() {
+		return this.suiteMethods;
 	}
 
 
